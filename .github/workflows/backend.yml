@@ -25,5 +25,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/my-backend-image:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-backend-image:latest
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/backend_image .
+          docker push ${{ secrets.DOCKER_USERNAME }}/backend_image
