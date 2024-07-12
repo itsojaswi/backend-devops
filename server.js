@@ -16,7 +16,7 @@ app.use(express.json());
 // Adjust origin as needed based on your frontend setup
 app.use(
   cors({
-    origin: "http://3.0.183.83:3000",
+    origin: "http://3.0.183.83",
     credentials: true, // Allow credentials such as cookies or authorization headers
   })
 );
