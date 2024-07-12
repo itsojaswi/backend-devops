@@ -1,4 +1,4 @@
-name: Build and Push Backend Image
+name: Build, Push, and Deploy Backend Image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build-and-push-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,3 +29,20 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
+
+      - name: Install SSH Client
+        run: sudo apt-get install -y openssh-client
+
+      - name: SSH into EC2 and Deploy
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker pull ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
+            docker stop backend_container || true
+            docker rm backend_container || true
+            docker run -d --name backend_container -p 80:80 ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
