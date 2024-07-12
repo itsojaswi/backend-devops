@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 // Route to display a message in the browser
 app.get("/", (req, res) => {
-  res.send("Welcome to the API server!");
+  res.send("Welcome to the API server!!!!!");
 });
 
 // Routes for workouts
