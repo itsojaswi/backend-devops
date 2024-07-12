@@ -14,10 +14,12 @@ app.use(express.json());
 
 // Middleware to enable CORS (Cross-Origin Resource Sharing)
 // Adjust origin as needed based on your frontend setup
-app.use(cors({
-  origin: 'http://3.0.183.83',
-  credentials: true // Allow credentials such as cookies or authorization headers
-}));
+app.use(
+  cors({
+    origin: "http://172.31.16.224",
+    credentials: true, // Allow credentials such as cookies or authorization headers
+  })
+);
 
 // Specify a port number for the server
 const port = process.env.PORT || 4000;
@@ -46,7 +48,9 @@ mongoose
   .then(() => {
     // Start the server and listen to the specified port
     app.listen(port, () => {
-      console.log(`Connected to the database. Server is running on port ${port}.`);
+      console.log(
+        `Connected to the database. Server is running on port ${port}.`
+      );
     });
   })
   .catch((error) => {
