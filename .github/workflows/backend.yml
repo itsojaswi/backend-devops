@@ -45,4 +45,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
             docker stop backend_container || true
             docker rm backend_container || true
-            docker run -d --name backend_container -p 80:80 ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
+            docker run -d --name backend_container --network=host ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
