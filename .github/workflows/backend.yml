@@ -64,7 +64,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: ${{ secrets.EC2_PORT }}
           script: |
-            echo "Listing Docker images on EC2..."
+            echo "Listing Docker images on EC2....."
             docker images
             echo "Listing running Docker containers on EC2..."
             docker ps -a
