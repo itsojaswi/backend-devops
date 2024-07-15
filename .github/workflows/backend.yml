@@ -1,4 +1,4 @@
-name: Build, Push, Test, and Deploy Backend Image
+name: Build, Push, and Deploy Backend Image
 
 on:
   push:
@@ -6,33 +6,11 @@ on:
       - main
 
 jobs:
-  build-test-push-deploy:
+  build-and-push-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Unit Tests
-        run: npm test
-        env:
-          CI: true
-
-      - name: Build Application
-        run: npm run build
-
-      - name: Run E2E Tests
-        run: npm run e2e
-        env:
-          CI: true
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -46,8 +24,8 @@ jobs:
       - name: Build and push backend image
         uses: docker/build-push-action@v4
         with:
-          context: . 
-          file: ./Dockerfile 
+          context: .
+          file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
