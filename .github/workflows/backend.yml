@@ -41,8 +41,30 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: ${{ secrets.EC2_PORT }}
           script: |
+            set -e  # Exit immediately if a command exits with a non-zero status.
+            echo "Checking Docker version..."
+            docker --version
+            echo "Logging into Docker Hub..."
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            echo "Pulling latest backend image..."
             docker pull ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
+            echo "Stopping and removing existing container (if any)..."
             docker stop backend_container || true
             docker rm backend_container || true
+            echo "Running new backend container..."
             docker run -d --name backend_container --network=host ${{ secrets.DOCKER_USERNAME }}/backend_image:latest
+            echo "Deployment complete. Listing running containers..."
+            docker ps -a
+
+      - name: Verify Image on EC2
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+            echo "Listing Docker images on EC2..."
+            docker images
+            echo "Listing running Docker containers on EC2..."
+            docker ps -a
