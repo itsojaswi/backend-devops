@@ -14,10 +14,10 @@ app.use(express.json());
 
 // Middleware to enable CORS (Cross-Origin Resource Sharing)
 // Adjust origin as needed based on your frontend setup
-const ip = "3.0.55.208";
+const ip = "13.213.57.24";
 app.use(
   cors({
-    origin: `http://3.0.55.208`,
+    origin: `http://${ip}`,
     credentials: true, // Allow credentials such as cookies or authorization headers
   })
 );
