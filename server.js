@@ -34,19 +34,6 @@ app.use("/api/user", userRoutes);
 // Specify a port number for the server
 const port = process.env.PORT || 4000;
 
-// HTTPS configuration
-const https = require("https");
-const fs = require("fs");
-
-const httpsOptions = {
-  cert: fs.readFileSync(
-    "/etc/letsencrypt/live/api-ojaswi.learn.cloudlaya.com/fullchain.pem"
-  ), // Update with your SSL certificate path
-  key: fs.readFileSync(
-    "/etc/letsencrypt/live/api-ojaswi.learn.cloudlaya.com/privkey.pem"
-  ), // Update with your private key path
-};
-
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
