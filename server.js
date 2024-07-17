@@ -15,12 +15,7 @@ app.use(express.json());
 // Middleware to enable CORS (Cross-Origin Resource Sharing)
 // Adjust origin as needed based on your frontend setup
 const ip = "13.213.57.24";
-app.use(
-  cors({
-    origin: `http://54.179.187.198`,
-    credentials: true, // Allow credentials such as cookies or authorization headers
-  })
-);
+app.use(cors({}));
 
 // Specify a port number for the server
 const port = process.env.PORT || 4000;
