@@ -17,7 +17,7 @@ app.use(express.json());
 const ip = "13.213.57.24";
 app.use(
   cors({
-    origin: `http://13.229.198.170`,
+    origin: `http://54.179.187.198`,
     credentials: true, // Allow credentials such as cookies or authorization headers
   })
 );
