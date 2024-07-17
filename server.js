@@ -42,7 +42,7 @@ mongoose
   })
   .then(() => {
     // Start the server and listen to the specified port with HTTPS
-    https.createServer(httpsOptions, app).listen(port, () => {
+    http.createServer(httpsOptions, app).listen(port, () => {
       console.log(
         `Connected to the database. Server is running on port ${port}.`
       );
